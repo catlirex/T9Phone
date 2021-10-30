@@ -1,6 +1,6 @@
 import "./App.css";
 import Display from "./components/Display";
-import KeyBoard from "./components/Keyboard";
+import KeyBoard from "./components/Keyboard/Keyboard";
 import SwitchLabels from "./components/Switch";
 
 function App() {

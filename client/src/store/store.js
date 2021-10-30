@@ -9,6 +9,12 @@ const useStore = create((set, get) => ({
 
   output: ["hi", "serw", "123"],
   setOutput: (payload) => set({ output: payload }),
+
+  currentInput: "",
+  setCurrentInput: (payload) => set({ currentInput: payload }),
+
+  currentOutput: "",
+  setCurrentOutput: (payload) => set({ currentOutput: payload }),
 }));
 
 export default useStore;
