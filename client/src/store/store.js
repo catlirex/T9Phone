@@ -7,7 +7,7 @@ const useStore = create((set, get) => ({
   input: [""],
   setInput: (payload) => set({ input: payload }),
 
-  output: [],
+  output: ["hi", "serw", "123"],
   setOutput: (payload) => set({ output: payload }),
 }));
 

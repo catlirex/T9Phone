@@ -1,4 +1,6 @@
 import "./App.css";
+import Display from "./components/Display";
+import KeyBoard from "./components/Keyboard";
 import SwitchLabels from "./components/Switch";
 
 function App() {
@@ -9,7 +11,10 @@ function App() {
         <div className="mode">
           <SwitchLabels />
         </div>
-        <div className="phone"></div>
+        <div className="phone">
+          <Display />
+          <KeyBoard />
+        </div>
       </div>
     </div>
   );
