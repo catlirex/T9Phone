@@ -23,19 +23,13 @@
 
 .phone {
   padding-top: 30px;
-  margin: 50px;
+  margin: 20px;
   width: 300px;
   height: 80vh;
   border: 5px solid black;
   border-radius: 30px;
 }
 
-.background-image {
-  margin: 0 100px;
-  padding: 15px 0;
-  width: 380px;
-  height: 700px;
-  background-size: cover;
-  margin-left: auto;
-  margin-right: auto;
+.mode {
+  width: 100px;
 }
