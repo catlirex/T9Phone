@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import useStore from "../../store/store";
 import { removeLastChar } from "../../service/helper/helper";
-import { getNonPredictWord } from "../../service/translate/translate.service";
+import {
+  getNonPredictWord,
+  getPredictWord,
+} from "../../service/translate/translate.service";
 
 const TOP_FUNCTION = ["reset", "next", "backspace"];
 const NUM_KEYBOARD = [
@@ -34,10 +37,17 @@ export default function KeyBoard() {
   const backPerviousWord = useStore((state) => state.backPerviousWord);
   const clearCurrent = useStore((state) => state.clearCurrent);
   const reset = useStore((state) => state.reset);
+  const setPredictOutputs = useStore((state) => state.setPredictOutputs);
+  const nextWord = useStore((state) => state.nextWord);
 
   useEffect(() => {
-    if (predictMode || currentWord === "") return;
-    getNonPredictWord(currentWord).then((res) => setCurrentOutput(res.output));
+    if (currentWord === "") return;
+    if (predictMode)
+      getPredictWord(currentWord).then((res) => setPredictOutputs(res));
+    if (!predictMode)
+      getNonPredictWord(currentWord).then((res) =>
+        setCurrentOutput(res.output)
+      );
   }, [currentWord, predictMode]);
 
   const renderTopKey = () => {
@@ -56,6 +66,7 @@ export default function KeyBoard() {
       handleSpace();
     }
     if (!predictMode && target === "next") setCurrentWord(currentWord + "+");
+    if (predictMode && target === "next") nextWord();
   };
 
   const handleSpace = () => {

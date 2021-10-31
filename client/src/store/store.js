@@ -16,6 +16,24 @@ const useStore = create((set, get) => ({
   currentOutput: "",
   setCurrentOutput: (payload) => set({ currentOutput: payload }),
 
+  predictOutputs: [],
+  predictPointer: 0,
+  setPredictOutputs: (payload) =>
+    set({
+      predictPointer: 0,
+      predictOutputs: payload,
+      currentOutput: payload[0],
+    }),
+  nextWord: () => {
+    if (get().predictPointer === get().predictOutputs.length - 1)
+      set({ predictPointer: 0, currentOutput: get().predictOutputs[0] });
+    else
+      set({
+        predictPointer: get().predictPointer + 1,
+        currentOutput: get().predictOutputs[get().predictPointer + 1],
+      });
+  },
+
   startNextWord: () => {
     set({
       input: [...get().input, get().currentInput],
