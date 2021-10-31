@@ -24,6 +24,27 @@ const useStore = create((set, get) => ({
       currentOutput: "",
     });
   },
+
+  backPerviousWord: () => {
+    if (get().output.length === 0) return;
+    set({
+      currentInput: get().input.at(-1),
+      currentOutput: get().output.at(-1),
+      input: [...get().input.slice(0, -1)],
+      output: [...get().output.slice(0, -1)],
+    });
+  },
+
+  clearCurrent: () => {
+    set({
+      currentInput: "",
+      currentOutput: "",
+    });
+  },
+
+  reset: () => {
+    set({ input: [], output: [], currentInput: "", currentOutput: "" });
+  },
 }));
 
 export default useStore;

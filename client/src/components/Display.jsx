@@ -7,7 +7,8 @@ export default function Display() {
   return (
     <div className="display">
       <span>{output.join(" ")} </span>
-      <span>{currentOutput}</span>
+      <span className="current">{currentOutput}</span>
+      <span className="pointer">|</span>
     </div>
   );
 }

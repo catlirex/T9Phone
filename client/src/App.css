@@ -50,3 +50,20 @@
   height: 40vh;
   padding: 5px;
 }
+
+.current {
+  text-decoration: underline;
+}
+
+.pointer {
+  animation: flash 1s infinite;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

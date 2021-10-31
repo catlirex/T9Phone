@@ -6,4 +6,5 @@ test("remove last character for non-predict mode, all duplicate number will remo
   expect(removeLastChar("1239878988")).toBe("12398789");
   expect(removeLastChar("0000")).toBe("");
   expect(removeLastChar("123456789")).toBe("12345678");
+  expect(removeLastChar("1")).toBe("");
 });
