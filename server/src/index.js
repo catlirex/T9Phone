@@ -3,14 +3,18 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-
 const app = express();
+
+const nonPredictRouter = require("./resources/nonPredict/router");
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
 
-app.get("*", (req, res) => {
-  res.json({ ok: true });
+app.use("/nonPredict", nonPredictRouter);
+
+app.all("*", (req, res) => {
+  res.status(400).json({ ERROR: "route no set, please check" });
 });
 
 const port = process.env.PORT || 3030;

@@ -4,10 +4,10 @@ const useStore = create((set, get) => ({
   predictMode: false,
   switchMode: () => set({ predictMode: !get().predictMode }),
 
-  input: [""],
+  input: [],
   setInput: (payload) => set({ input: payload }),
 
-  output: ["hi", "serw", "123"],
+  output: [],
   setOutput: (payload) => set({ output: payload }),
 
   currentInput: "",
@@ -15,6 +15,15 @@ const useStore = create((set, get) => ({
 
   currentOutput: "",
   setCurrentOutput: (payload) => set({ currentOutput: payload }),
+
+  startNextWord: () => {
+    set({
+      input: [...get().input, get().currentInput],
+      output: [...get().output, get().currentOutput],
+      currentInput: "",
+      currentOutput: "",
+    });
+  },
 }));
 
 export default useStore;
