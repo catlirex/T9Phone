@@ -1,6 +1,6 @@
 const { unigram } = require("unigram");
 
-const wordsWithWeight = unigram.slice(0, 30000);
+const wordsWithWeight = unigram.slice(0, 50000);
 const numMap = {
   2: ["a", "b", "c"],
   3: ["d", "e", "f"],
