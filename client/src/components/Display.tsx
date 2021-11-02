@@ -1,3 +1,4 @@
+import * as React from "react";
 import useStore from "../store/store";
 
 export default function Display() {
