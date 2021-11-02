@@ -1,14 +1,12 @@
 import create from "zustand";
+import { removeLastChar } from "../service/helper/helper";
 
 const useStore = create((set, get) => ({
-  predictMode: false,
+  predictMode: true,
   switchMode: () => set({ predictMode: !get().predictMode }),
 
   input: [],
-  setInput: (payload) => set({ input: payload }),
-
   output: [],
-  setOutput: (payload) => set({ output: payload }),
 
   currentInput: "",
   setCurrentInput: (payload) => set({ currentInput: payload }),
@@ -24,6 +22,7 @@ const useStore = create((set, get) => ({
       predictOutputs: payload,
       currentOutput: payload[0],
     }),
+
   nextWord: () => {
     if (get().predictPointer === get().predictOutputs.length - 1)
       set({ predictPointer: 0, currentOutput: get().predictOutputs[0] });
@@ -62,6 +61,14 @@ const useStore = create((set, get) => ({
 
   reset: () => {
     set({ input: [], output: [], currentInput: "", currentOutput: "" });
+  },
+
+  handleSpace: () => {
+    if (get().currentOutput === "") get().backPerviousWord();
+    else if (get().currentOutput.length === 1) get().clearCurrent();
+    else if (get().predictMode)
+      set({ currentInput: get().currentInput.slice(0, -1) });
+    else get().setCurrentWord(removeLastChar(get().currentWord));
   },
 }));
 

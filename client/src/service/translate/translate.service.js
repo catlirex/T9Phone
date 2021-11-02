@@ -6,7 +6,4 @@ export const getNonPredictWord = async (numSting) =>
   );
 
 export const getPredictWord = async (numSting) =>
-  await fetch(`${connectionAPI}predict/${numSting}`).then((res) =>
-    // res.json()
-    ["cat", "eat", "hello"]
-  );
+  await fetch(`${connectionAPI}predict/${numSting}`).then((res) => res.json());

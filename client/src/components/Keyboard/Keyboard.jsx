@@ -29,21 +29,19 @@ const BOTTOM_FUNCTION = ["*", " ", "#"];
 export default function KeyBoard() {
   const predictMode = useStore((state) => state.predictMode);
   const currentWord = useStore((state) => state.currentInput);
-  const currentOutput = useStore((state) => state.currentOutput);
 
   const setCurrentWord = useStore((state) => state.setCurrentInput);
   const setCurrentOutput = useStore((state) => state.setCurrentOutput);
   const startNextWord = useStore((state) => state.startNextWord);
-  const backPerviousWord = useStore((state) => state.backPerviousWord);
-  const clearCurrent = useStore((state) => state.clearCurrent);
   const reset = useStore((state) => state.reset);
   const setPredictOutputs = useStore((state) => state.setPredictOutputs);
   const nextWord = useStore((state) => state.nextWord);
+  const handleSpace = useStore((state) => state.handleSpace);
 
   useEffect(() => {
     if (currentWord === "") return;
     if (predictMode)
-      getPredictWord(currentWord).then((res) => setPredictOutputs(res));
+      getPredictWord(currentWord).then((res) => setPredictOutputs(res.result));
     if (!predictMode)
       getNonPredictWord(currentWord).then((res) =>
         setCurrentOutput(res.output)
@@ -67,12 +65,6 @@ export default function KeyBoard() {
     }
     if (!predictMode && target === "next") setCurrentWord(currentWord + "+");
     if (predictMode && target === "next") nextWord();
-  };
-
-  const handleSpace = () => {
-    if (currentOutput === "") backPerviousWord();
-    else if (currentOutput.length === 1) clearCurrent();
-    else setCurrentWord(removeLastChar(currentWord));
   };
 
   const renderNumKey = () => {
@@ -100,19 +92,20 @@ export default function KeyBoard() {
     ));
   };
 
-  const handleKeyUp = (event) => {
+  const handleKeyDown = (event) => {
     event.preventDefault();
     const validValue = ["2", "3", "4", "5", "6", "7", "8", "9"];
-    if (event.code === "Space") return startNextWord();
-    if (event.code === "Backspace") return handleSpace();
+    if (event.code === "Space") startNextWord();
+    if (event.code === "Backspace") handleSpace();
     if (!predictMode && event.code === "ArrowRight")
-      return setCurrentWord(currentWord + "+");
+      setCurrentWord(currentWord + "+");
+    if (predictMode && event.code === "ArrowRight") nextWord();
 
     if (validValue.includes(event.key)) setCurrentWord(currentWord + event.key);
   };
 
   return (
-    <div className="keyboard-container" onKeyUp={handleKeyUp}>
+    <div className="keyboard-container" onKeyDown={handleKeyDown}>
       {renderTopKey()}
       {renderNumKey()}
       {renderBottomKey()}

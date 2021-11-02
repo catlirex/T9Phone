@@ -9,16 +9,30 @@
 ::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }
-.APP {
-}
+
 .wrapper {
   margin-right: auto;
   margin-left: auto;
-  max-width: 500px;
+  max-width: 700px;
   padding-right: 10px;
   padding-left: 10px;
   text-align: -webkit-center;
   margin-top: 20px;
+}
+
+main {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.description {
+  text-align: left;
+  display: grid;
+  height: fit-content;
+  gap: 5px;
+}
+h2 {
+  padding: 10px 0;
 }
 
 .phone {
