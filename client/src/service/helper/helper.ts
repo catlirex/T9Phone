@@ -1,4 +1,4 @@
-export const removeLastChar = (currentWord) => {
+export const removeLastChar = (currentWord: string) => {
   let toRemoveNum = 0;
   for (
     let i = currentWord.length;

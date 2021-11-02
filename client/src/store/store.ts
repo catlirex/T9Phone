@@ -1,7 +1,8 @@
 import create from "zustand";
 import { removeLastChar } from "../service/helper/helper";
+import { StoreType } from "./type";
 
-const useStore = create((set, get) => ({
+const useStore = create<StoreType>((set, get) => ({
   predictMode: true,
   switchMode: () => set({ predictMode: !get().predictMode }),
 
@@ -44,12 +45,15 @@ const useStore = create((set, get) => ({
 
   backPerviousWord: () => {
     if (get().output.length === 0) return;
-    set({
-      currentInput: get().input.at(-1),
-      currentOutput: get().output.at(-1),
-      input: [...get().input.slice(0, -1)],
-      output: [...get().output.slice(0, -1)],
-    });
+    const updatedInput = get().input.at(-1);
+    const updatedOutput = get().output.at(-1);
+    if (updatedInput && updatedOutput)
+      set({
+        currentInput: updatedInput,
+        currentOutput: updatedOutput,
+        input: [...get().input.slice(0, -1)],
+        output: [...get().output.slice(0, -1)],
+      });
   },
 
   clearCurrent: () => {
@@ -68,7 +72,7 @@ const useStore = create((set, get) => ({
     else if (get().currentOutput.length === 1) get().clearCurrent();
     else if (get().predictMode)
       set({ currentInput: get().currentInput.slice(0, -1) });
-    else get().setCurrentWord(removeLastChar(get().currentWord));
+    else get().setCurrentInput(removeLastChar(get().currentInput));
   },
 }));
 

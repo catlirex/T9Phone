@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect } from "react";
 import useStore from "../../store/store";
-import { removeLastChar } from "../../service/helper/helper";
 import {
   getNonPredictWord,
   getPredictWord,
@@ -28,7 +28,7 @@ export default function KeyBoard() {
       getNonPredictWord(currentWord).then((res) =>
         setCurrentOutput(res.output)
       );
-  }, [currentWord, predictMode]);
+  }, [currentWord, predictMode, setCurrentOutput, setPredictOutputs]);
 
   const renderTopKey = () => {
     return TOP_FUNCTION.map((target) => (
@@ -38,7 +38,7 @@ export default function KeyBoard() {
     ));
   };
 
-  const handleTopClick = (target) => {
+  const handleTopClick = (target: string) => {
     if (target === "reset") {
       reset();
     }
@@ -74,7 +74,7 @@ export default function KeyBoard() {
     ));
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
     event.preventDefault();
     const validValue = ["2", "3", "4", "5", "6", "7", "8", "9"];
     if (event.code === "Space") startNextWord();
