@@ -1,4 +1,5 @@
 const { unigram } = require("unigram");
+const { validateInput } = require("../../helper/validateInput");
 
 const wordsWithWeight = unigram.slice(0, 50000);
 const numMap = {
@@ -15,8 +16,9 @@ const numMap = {
 const predict = (req, res) => {
   const input = [...req.params.input];
   let inputLength = input.length;
+  if (!validateInput(input))
+    return res.status(400).json({ ERROR: "input not valid" });
   const possibleOutput = getPossibleOutput(input, inputLength);
-  console.log("possibleOutput", possibleOutput);
   return res.json({ result: possibleOutput });
 };
 

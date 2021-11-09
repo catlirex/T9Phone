@@ -3,8 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const app = express();
 
+const app = express();
 const nonPredictRouter = require("./resources/nonPredict/router");
 const predictRouter = require("./resources/predict/router");
 
@@ -20,7 +20,6 @@ app.all("*", (req, res) => {
 });
 
 const port = process.env.PORT || 3030;
+const server = app.listen(port);
 
-app.listen(port, () => {
-  console.log(`\n🚀 Server is running on http://localhost:${port}/\n`);
-});
+module.exports = server;

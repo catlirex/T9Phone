@@ -1,7 +1,11 @@
 const databases = require("../../data/nonPredict.json");
+const { validateInput } = require("../../helper/validateInput");
 
 const translate = (req, res) => {
   const input = req.params.input;
+  if (!validateInput(input))
+    return res.status(400).json({ ERROR: "input not valid" });
+
   const separatedInput = separateInput(input);
   const separatedOutput = getOutput(separatedInput);
   return res.json({ output: separatedOutput.join("") });
